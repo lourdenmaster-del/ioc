@@ -1,0 +1,13 @@
+LIGS / IOC
+Public product: Initial Operating Conditions generator.
+
+Human UI: https://ligs.io/ioc
+
+Machine-readable interface spec: GET any /ioc page HTML; element #ioc-interface-spec (application/json).
+
+Public API (this deploy):
+POST /api/ioc — body { "birthdate": "YYYY-MM-DD" } → { archetype, iocFree }
+POST /api/ioc/checkout — body { "archetype" } → Stripe Checkout URL (full IOC unlock)
+GET /api/ioc/verify-session?ioc_checkout_session=<id> — after payment → { ok, iocFull, ... }
+
+Stripe webhook: POST /api/stripe/webhook (IOC unlock checkouts acknowledged; no side effects)
