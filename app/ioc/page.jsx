@@ -6,6 +6,50 @@ import { useRouter, useSearchParams } from "next/navigation";
 const IOC_FULL_KEY = "ioc_ioc_full_v1";
 const IOC_PRE_CHECKOUT_KEY = "ioc_pre_checkout";
 
+function normalizeBirthdate(input) {
+  const trimmed = input.trim();
+
+  // 1. ISO format: YYYY-MM-DD
+  const isoMatch = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) {
+    return trimmed;
+  }
+
+  // 2. Month Day Year (e.g. December 12 2012)
+  const monthNames = {
+    january: "01",
+    february: "02",
+    march: "03",
+    april: "04",
+    may: "05",
+    june: "06",
+    july: "07",
+    august: "08",
+    september: "09",
+    october: "10",
+    november: "11",
+    december: "12",
+  };
+
+  const parts = trimmed.toLowerCase().split(/\s+/);
+
+  if (parts.length === 3) {
+    const [monthWord, day, year] = parts;
+
+    if (monthNames[monthWord]) {
+      const mm = monthNames[monthWord];
+      const dd = String(parseInt(day, 10)).padStart(2, "0");
+
+      if (/^\d{1,2}$/.test(day) && /^\d{4}$/.test(year)) {
+        return `${year}-${mm}-${dd}`;
+      }
+    }
+  }
+
+  // Reject everything else
+  return null;
+}
+
 function IocPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -20,6 +64,7 @@ function IocPageInner() {
   const [unlocking, setUnlocking] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [dateError, setDateError] = useState("");
 
   const clipboardText = unlocked && iocFull ? iocFull : iocFree;
 
@@ -103,6 +148,12 @@ function IocPageInner() {
   }, [checkoutSessionId, router, applyPreCheckoutFromStorage]);
 
   const generate = useCallback(async () => {
+    setDateError("");
+    const normalized = normalizeBirthdate(birthdate);
+    if (!normalized) {
+      setDateError("Invalid date");
+      return;
+    }
     setLoading(true);
     setUnlocked(false);
     setIocFull("");
@@ -116,10 +167,11 @@ function IocPageInner() {
       const res = await fetch("/api/ioc", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ birthdate }),
+        body: JSON.stringify({ birthdate: normalized }),
       });
       const data = await res.json().catch(() => ({}));
       if (data?.iocFree && typeof data.iocFree === "string") {
+        setBirthdate(normalized);
         setIocFree(data.iocFree);
         setArchetype(typeof data.archetype === "string" ? data.archetype : "");
       } else {
@@ -268,9 +320,13 @@ function IocPageInner() {
               }}
             >
               <input
-                type="date"
+                type="text"
                 value={birthdate}
-                onChange={(e) => setBirthdate(e.target.value)}
+                placeholder="Enter your birthdate (e.g. December 12 2012)"
+                onChange={(e) => {
+                  setBirthdate(e.target.value);
+                  setDateError("");
+                }}
                 style={{
                   background: "#111",
                   color: "#fff",
@@ -300,6 +356,20 @@ function IocPageInner() {
                 Generate IOC
               </button>
             </div>
+
+            {dateError ? (
+              <p
+                style={{
+                  fontSize: "0.6875rem",
+                  color: "#666",
+                  margin: "0.35rem 0 0",
+                  textAlign: "center",
+                  lineHeight: 1.4,
+                }}
+              >
+                Invalid date
+              </p>
+            ) : null}
 
             <p
               style={{
