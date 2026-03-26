@@ -553,6 +553,28 @@ https://ligs.io/openapi.json
 
 ---
 `}</pre>
+        <pre
+          style={{
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            fontFamily: "inherit",
+            fontSize: "0.6875rem",
+            lineHeight: 1.55,
+            color: "#888",
+            margin: "1.25rem 0 0",
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            textAlign: "left",
+          }}
+        >{`---
+
+REAL USER RESPONSE
+
+"Whooaaa I can tell you rn that my chatGPT is soooo much clearer and organized and immediately zones in on exactly what I'm looking for! Omg! Even uses numbered steps that I can follow easily to avoid getting overwhelmed."
+
+---
+`}</pre>
       </div>
       <p
         aria-hidden
