@@ -1,4 +1,4 @@
-# LIGS IOC site
+# IOC site
 
 Production Next.js (App Router) app for **ligs.io**: Initial Operating Conditions (IOC) only.
 

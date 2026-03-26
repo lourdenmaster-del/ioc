@@ -200,7 +200,7 @@ function IocPageInner() {
               fontWeight: 500,
             }}
           >
-            LIGS / IOC
+            IOC — Initial Operating Conditions
           </p>
           {!isPaidDelivery ? (
             <h1

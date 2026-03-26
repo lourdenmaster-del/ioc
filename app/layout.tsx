@@ -9,12 +9,12 @@ const metadataBaseUrl = (
 
 export const metadata: Metadata = {
   metadataBase: new URL(metadataBaseUrl),
-  title: "LIGS / IOC",
+  title: "IOC — Initial Operating Conditions",
   description:
     "Enter your birthdate. Generate. Copy. Paste this into your AI chat. Then continue normally.",
   alternates: { canonical: "/ioc" },
   openGraph: {
-    title: "LIGS / IOC",
+    title: "IOC — Initial Operating Conditions",
     description:
       "Enter your birthdate. Generate. Copy. Paste this into your AI chat. Then continue normally.",
     siteName: "IOC",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "LIGS / IOC",
+    title: "IOC — Initial Operating Conditions",
     description:
       "Enter your birthdate. Generate. Copy. Paste this into your AI chat. Then continue normally.",
   },

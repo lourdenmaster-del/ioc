@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "jsonSchemaDialect": "https://spec.openapis.org/oas/3.1/dialect/base",
   "info": {
-    "title": "LIGS IOC Machine Protocol",
+    "title": "IOC Machine Protocol",
     "version": "0.3",
     "description": "HTTP surface for Initial Operating Conditions (IOC) as a machine protocol. Use for **human initialization**: derive **user context** from birthdate, inject IOC text into the model for **agent calibration** and **cold start optimization**. Response bodies for successful machine calls match `/ioc-lite.schema.json` and `/ioc-full.schema.json` (same shapes as components IocLite and IocFull).",
     "contact": {

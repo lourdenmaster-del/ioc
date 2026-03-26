@@ -1,4 +1,4 @@
-LIGS / IOC
+IOC — Initial Operating Conditions
 Public product: Initial Operating Conditions generator.
 
 Human UI: https://ligs.io/ioc

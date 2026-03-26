@@ -1,17 +1,17 @@
 import IocSpecSignal from "./IocSpecSignal";
 
 export const metadata = {
-  title: "LIGS / IOC",
+  title: "IOC — Initial Operating Conditions",
   description:
     "Enter your birthdate. Generate. Copy. Paste this into your AI chat. Then continue normally.",
   openGraph: {
-    title: "LIGS / IOC",
+    title: "IOC — Initial Operating Conditions",
     description:
       "Enter your birthdate. Generate. Copy. Paste this into your AI chat. Then continue normally.",
     siteName: "IOC",
   },
   twitter: {
-    title: "LIGS / IOC",
+    title: "IOC — Initial Operating Conditions",
     description:
       "Enter your birthdate. Generate. Copy. Paste this into your AI chat. Then continue normally.",
   },
