@@ -199,7 +199,7 @@ function IocPageInner() {
         <header style={{ textAlign: "center" }}>
           <p
             style={{
-              fontSize: "1rem",
+              fontSize: "1.1rem",
               color: "#888",
               margin: isPaidDelivery ? "0 0 0.75rem" : "0 0 0.35rem",
               fontWeight: 700,
@@ -217,19 +217,6 @@ function IocPageInner() {
           >
             IOC — Initial Operating Conditions
           </p>
-          {!isPaidDelivery ? (
-            <h1
-              style={{
-                fontSize: "1rem",
-                fontWeight: 600,
-                lineHeight: 1.35,
-                margin: "0 0 0.75rem",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Initial Operating Conditions
-            </h1>
-          ) : null}
           {!isPaidDelivery ? (
             <p
               style={{
