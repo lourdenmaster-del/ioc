@@ -199,10 +199,10 @@ function IocPageInner() {
         <header style={{ textAlign: "center" }}>
           <p
             style={{
-              fontSize: "0.75rem",
+              fontSize: "0.9rem",
               color: "#888",
               margin: isPaidDelivery ? "0 0 0.75rem" : "0 0 0.35rem",
-              fontWeight: 500,
+              fontWeight: 600,
             }}
           >
             (L)igs
@@ -320,18 +320,7 @@ function IocPageInner() {
               style={{
                 fontSize: "0.6875rem",
                 color: "#666",
-                margin: "0.5rem 0 0.25rem",
-                textAlign: "center",
-                lineHeight: 1.4,
-              }}
-            >
-              Initial conditions matter.
-            </p>
-            <p
-              style={{
-                fontSize: "0.6875rem",
-                color: "#666",
-                margin: 0,
+                margin: "0.5rem 0 0",
                 textAlign: "center",
                 lineHeight: 1.4,
               }}
