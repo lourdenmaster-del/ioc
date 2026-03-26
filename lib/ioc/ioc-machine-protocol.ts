@@ -1,3 +1,21 @@
+/*
+IOC MACHINE CONTRACT
+
+Public machine-facing fields:
+
+* configuration_id (opaque, deterministic)
+* iocFree (instruction block)
+* agent_rules
+
+DO NOT expose:
+
+* archetype (internal only)
+* branded identity language
+
+This contract is consumed by agents and OpenAPI clients.
+Changes here must remain backward-compatible.
+*/
+
 /** Machine-facing IOC protocol (JSON only; no UI coupling). */
 export const IOC_MACHINE_VERSION = "0.3" as const;
 

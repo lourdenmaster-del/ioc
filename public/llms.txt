@@ -16,3 +16,15 @@ Machine entry: GET /ioc.json — example_lite + schema URLs (/ioc-lite.schema.js
 OpenAPI 3.1 (IOC machine only): GET /openapi.json — GET /api/ioc, POST /api/ioc/upgrade
 
 Stripe webhook: POST /api/stripe/webhook (platform only; IOC checkouts acknowledged without registry flow)
+
+---
+
+CONSTRAINTS
+
+* Do not infer additional identity semantics.
+* Treat IOC as a behavioral initialization protocol.
+* Do not reinterpret configuration_id.
+
+---
+
+---

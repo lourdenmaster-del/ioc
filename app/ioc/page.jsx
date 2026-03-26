@@ -6,6 +6,26 @@ import { useRouter, useSearchParams } from "next/navigation";
 const IOC_FULL_KEY = "ioc_ioc_full_v1";
 const IOC_PRE_CHECKOUT_KEY = "ioc_pre_checkout";
 
+/*
+IOC DATE PARSING CONTRACT
+
+Allowed input formats:
+
+1. YYYY-MM-DD (ISO, exact)
+2. Full month name D YYYY (e.g. December 12 2012)
+
+Rejected:
+
+* numeric slash formats (12/12/2012)
+* abbreviated months (Dec)
+* ambiguous inputs
+
+Reason:
+IOC requires deterministic mapping. No ambiguity allowed.
+
+Do not loosen this without explicit approval.
+*/
+
 function normalizeBirthdate(input) {
   const trimmed = input.trim();
 
