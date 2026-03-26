@@ -405,6 +405,39 @@ function IocPageInner() {
             ) : null}
           </section>
         ) : null}
+        <pre
+          style={{
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            fontFamily: "inherit",
+            fontSize: "0.6875rem",
+            lineHeight: 1.55,
+            color: "#888",
+            margin: "1.25rem 0 0",
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            textAlign: "left",
+          }}
+        >{`---
+
+FOR AGENTS / BUILDERS
+
+GET https://ligs.io/api/ioc?birthdate=YYYY-MM-DD
+
+Returns:
+
+* configuration_id
+* initial operating conditions
+* agent rules
+
+Use as system initialization.
+
+OpenAPI:
+https://ligs.io/openapi.json
+
+---
+`}</pre>
       </div>
       <p
         aria-hidden
