@@ -225,6 +225,19 @@ function IocPageInner() {
                 fontWeight: 400,
               }}
             >
+              For personal use
+            </p>
+          ) : null}
+          {!isPaidDelivery ? (
+            <p
+              style={{
+                fontSize: "0.8125rem",
+                lineHeight: 1.55,
+                color: "#b3b3b3",
+                margin: "0 0 0.75rem",
+                fontWeight: 400,
+              }}
+            >
               Stop using generic AI. Use yours.
             </p>
           ) : null}
@@ -405,6 +418,18 @@ function IocPageInner() {
             ) : null}
           </section>
         ) : null}
+        <p
+          style={{
+            fontFamily: "inherit",
+            fontSize: "0.6875rem",
+            lineHeight: 1.55,
+            color: "#888",
+            margin: "1.25rem 0 0",
+            padding: 0,
+          }}
+        >
+          For developers and agents
+        </p>
         <pre
           style={{
             whiteSpace: "pre-wrap",
@@ -413,7 +438,7 @@ function IocPageInner() {
             fontSize: "0.6875rem",
             lineHeight: 1.55,
             color: "#888",
-            margin: "1.25rem 0 0",
+            margin: "0.25rem 0 0",
             padding: 0,
             border: "none",
             background: "transparent",
