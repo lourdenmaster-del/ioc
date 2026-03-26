@@ -6,8 +6,13 @@ Human UI: https://ligs.io/ioc
 Machine-readable interface spec: GET any /ioc page HTML; element #ioc-interface-spec (application/json).
 
 Public API (this deploy):
-POST /api/ioc — body { "birthdate": "YYYY-MM-DD" } → { archetype, iocFree }
-POST /api/ioc/checkout — body { "archetype" } → Stripe Checkout URL (full IOC unlock)
+POST /api/ioc — body { "birthdate": "YYYY-MM-DD" } → { archetype, iocFree } (human/UI)
+GET /api/ioc — query birthdate=YYYY-MM-DD → machine ioc_lite JSON (ioc_version, data, agent_rules)
+POST /api/ioc/upgrade — body { "ioc_checkout_session": "<Stripe checkout session id>", "birthdate": "YYYY-MM-DD" optional } → machine ioc_full after paid unlock; else { ok: false, error: "payment_required" }
+POST /api/ioc/checkout — body { archetype } → Stripe Checkout URL (full IOC unlock)
 GET /api/ioc/verify-session?ioc_checkout_session=<id> — after payment → { ok, iocFull, ... }
 
-Stripe webhook: POST /api/stripe/webhook (IOC unlock checkouts acknowledged; no side effects)
+Machine entry: GET /ioc.json — example_lite + schema URLs (/ioc-lite.schema.json, /ioc-full.schema.json)
+OpenAPI 3.1 (IOC machine only): GET /openapi.json — GET /api/ioc, POST /api/ioc/upgrade
+
+Stripe webhook: POST /api/stripe/webhook (platform only; IOC checkouts acknowledged without registry flow)
