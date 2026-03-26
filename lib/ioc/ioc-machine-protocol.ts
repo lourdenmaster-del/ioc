@@ -13,12 +13,12 @@ export const IOC_AGENT_RULES = {
 } as const;
 
 export type IocLiteMachineData = {
-  archetype: string;
+  configuration_id: string;
   iocFree: string;
 };
 
 export type IocFullMachineData = {
-  archetype: string;
+  configuration_id: string;
   iocFull: string;
 };
 

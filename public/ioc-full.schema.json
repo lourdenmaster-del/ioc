@@ -17,15 +17,15 @@
     "data": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["archetype", "iocFull"],
+      "required": ["configuration_id", "iocFull"],
       "properties": {
-        "archetype": {
+        "configuration_id": {
           "type": "string",
-          "description": "Lowercase IOC archetype key derived from birthdate."
+          "description": "Opaque deterministic identifier for this IOC configuration (machine-safe; not a product label)."
         },
         "iocFull": {
           "type": "string",
-          "description": "Complete initial operating conditions block for the archetype."
+          "description": "Complete initial operating conditions block for this configuration."
         }
       }
     }

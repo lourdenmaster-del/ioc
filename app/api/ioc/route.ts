@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { killSwitchResponse } from "@/lib/api-kill-switch";
 import { log } from "@/lib/log";
 import { getArchetypeFromBirthdate } from "@/lib/ioc/archetype-from-birthdate";
+import { configurationIdForInternalArchetype } from "@/lib/ioc/ioc-configuration-id";
 import { buildIocLiteProtocolResponse } from "@/lib/ioc/ioc-machine-protocol";
 import { getIocTextForArchetype } from "@/lib/ioc/ioc-map";
 import { buildIocFreeBlock, normalizeIocBlockForClipboard } from "@/lib/ioc/ioc-split";
@@ -21,7 +22,8 @@ export async function GET(request: Request) {
     success: true,
     archetype,
   });
-  return NextResponse.json(buildIocLiteProtocolResponse({ archetype, iocFree }));
+  const configuration_id = configurationIdForInternalArchetype(archetype);
+  return NextResponse.json(buildIocLiteProtocolResponse({ configuration_id, iocFree }));
 }
 
 export async function POST(request: Request) {

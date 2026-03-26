@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { killSwitchResponse } from "@/lib/api-kill-switch";
 import { log } from "@/lib/log";
 import { getArchetypeFromBirthdate } from "@/lib/ioc/archetype-from-birthdate";
+import { configurationIdForInternalArchetype } from "@/lib/ioc/ioc-configuration-id";
 import { buildIocFullProtocolResponse } from "@/lib/ioc/ioc-machine-protocol";
 import { resolvePaidIocUnlockFromCheckoutSession } from "@/lib/ioc/ioc-paid-checkout-session";
 
@@ -65,7 +66,8 @@ export async function POST(request: Request) {
     archetype: resolved.archetype,
   });
 
+  const configuration_id = configurationIdForInternalArchetype(resolved.archetype);
   return NextResponse.json(
-    buildIocFullProtocolResponse({ archetype: resolved.archetype, iocFull: resolved.iocFull })
+    buildIocFullProtocolResponse({ configuration_id, iocFull: resolved.iocFull })
   );
 }

@@ -16,11 +16,11 @@
     "data": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["archetype", "iocFree"],
+      "required": ["configuration_id", "iocFree"],
       "properties": {
-        "archetype": {
+        "configuration_id": {
           "type": "string",
-          "description": "Lowercase IOC archetype key derived from birthdate."
+          "description": "Opaque deterministic identifier for this IOC configuration (machine-safe; not a product label)."
         },
         "iocFree": {
           "type": "string",

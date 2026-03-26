@@ -9,7 +9,7 @@
     "ioc_version": "0.3",
     "type": "ioc_lite",
     "data": {
-      "archetype": "ignispectrum",
+      "configuration_id": "ioc_cfg_1916e02486082654af02",
       "iocFree": "INITIAL OPERATING CONDITIONS\n\nApply the following behavior rules immediately and consistently:\n\n- Keep each reply short; respond without long gaps on your side.\n- State conclusions in direct, high-signal sentences; cut filler and hedges unless the user asks for softer wording.\n- Build the main answer as one short narrative thread (setup → move → outcome), not a scatter of unrelated bullets.\n\nThese rules override default response behavior."
     },
     "agent_rules": {

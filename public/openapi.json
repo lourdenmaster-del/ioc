@@ -26,14 +26,14 @@
       "get": {
         "tags": ["IOC"],
         "summary": "Get IOC lite (machine)",
-        "description": "Returns **ioc_lite** JSON: truncated IOC block, archetype, and **agent_rules** for upgrade and fallback behavior. Supports **human initialization** and **cold start optimization** without a paid session.",
+        "description": "Returns **ioc_lite** JSON: truncated IOC block, opaque **configuration_id**, **iocFree** text, and **agent_rules** for upgrade and fallback behavior. Supports **human initialization** and **cold start optimization** without a paid session.",
         "operationId": "getIocLite",
         "parameters": [
           {
             "name": "birthdate",
             "in": "query",
             "required": false,
-            "description": "ISO birth date `YYYY-MM-DD`. Omitted or empty uses the same deterministic default archetype path as an empty string in server logic.",
+            "description": "ISO birth date `YYYY-MM-DD`. Omitted or empty uses the same deterministic default resolution as an empty string in server logic.",
             "schema": {
               "type": "string",
               "example": "1990-05-21"
@@ -73,7 +73,7 @@
       "post": {
         "tags": ["IOC"],
         "summary": "Get IOC full (machine, paid)",
-        "description": "Returns **ioc_full** after verifying a completed IOC Stripe Checkout Session (`ioc_unlock` metadata). Optional **birthdate** must match the paid archetype when provided. Use for **agent calibration** with full rule depth once **user context** is paid-unlocked.",
+        "description": "Returns **ioc_full** after verifying a completed IOC Stripe Checkout Session (`ioc_unlock` metadata). Optional **birthdate** must match the paid-unlock configuration when provided. Use for **agent calibration** with full rule depth once **user context** is paid-unlocked.",
         "operationId": "postIocUpgrade",
         "requestBody": {
           "required": true,
@@ -90,7 +90,7 @@
                   }
                 },
                 "sessionAndBirthdate": {
-                  "summary": "Session id + birthdate (must match session archetype)",
+                  "summary": "Session id + birthdate (must match paid unlock)",
                   "value": {
                     "ioc_checkout_session": "cs_test_...",
                     "birthdate": "1990-05-21"
@@ -168,11 +168,11 @@
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["archetype", "iocFree"],
+            "required": ["configuration_id", "iocFree"],
             "properties": {
-              "archetype": {
+              "configuration_id": {
                 "type": "string",
-                "description": "Lowercase IOC archetype key derived from birthdate."
+                "description": "Opaque deterministic identifier for this IOC configuration (stable for a given birthdate + protocol version; not a display label)."
               },
               "iocFree": {
                 "type": "string",
@@ -230,15 +230,15 @@
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["archetype", "iocFull"],
+            "required": ["configuration_id", "iocFull"],
             "properties": {
-              "archetype": {
+              "configuration_id": {
                 "type": "string",
-                "description": "Lowercase IOC archetype key derived from birthdate."
+                "description": "Opaque deterministic identifier for this IOC configuration (stable for a given birthdate + protocol version; not a display label)."
               },
               "iocFull": {
                 "type": "string",
-                "description": "Complete initial operating conditions block for the archetype."
+                "description": "Complete initial operating conditions block for this configuration."
               }
             }
           }
@@ -254,7 +254,7 @@
           },
           "birthdate": {
             "type": "string",
-            "description": "Optional `YYYY-MM-DD`. If non-empty, must match archetype embedded in the Checkout Session; otherwise response is `payment_required`."
+            "description": "Optional `YYYY-MM-DD`. If non-empty, must match the configuration paid for in the Checkout Session; otherwise response is `payment_required`."
           }
         },
         "additionalProperties": true
