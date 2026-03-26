@@ -4,7 +4,7 @@
   "info": {
     "title": "LIGS IOC Machine Protocol",
     "version": "0.3",
-    "description": "HTTP surface for Initial Operating Conditions (IOC) as a machine protocol. Use for **human initialization**: derive **user context** from birthdate, inject IOC text into the model for **agent calibration** and **cold start optimization**. Response bodies for successful machine calls align with `/ioc-lite.schema.json` and `/ioc-full.schema.json`.",
+    "description": "HTTP surface for Initial Operating Conditions (IOC) as a machine protocol. Use for **human initialization**: derive **user context** from birthdate, inject IOC text into the model for **agent calibration** and **cold start optimization**. Response bodies for successful machine calls match `/ioc-lite.schema.json` and `/ioc-full.schema.json` (same shapes as components IocLite and IocFull).",
     "contact": {
       "url": "https://ligs.io"
     }
@@ -46,7 +46,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ioc-lite.schema.json"
+                  "$ref": "#/components/schemas/IocLite"
                 }
               }
             }
@@ -108,7 +108,7 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "ioc-full.schema.json"
+                      "$ref": "#/components/schemas/IocFull"
                     },
                     {
                       "$ref": "#/components/schemas/PaymentRequiredError"
@@ -147,6 +147,103 @@
   },
   "components": {
     "schemas": {
+      "IocVersion": {
+        "description": "Machine protocol version; shared with IocLite and IocFull.",
+        "type": "string",
+        "const": "0.3"
+      },
+      "IocLite": {
+        "title": "IOC Lite machine response",
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ioc_version", "type", "data", "agent_rules"],
+        "properties": {
+          "ioc_version": {
+            "$ref": "#/components/schemas/IocVersion"
+          },
+          "type": {
+            "type": "string",
+            "const": "ioc_lite"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["archetype", "iocFree"],
+            "properties": {
+              "archetype": {
+                "type": "string",
+                "description": "Lowercase IOC archetype key derived from birthdate."
+              },
+              "iocFree": {
+                "type": "string",
+                "description": "Truncated initial operating conditions block (free tier)."
+              }
+            }
+          },
+          "agent_rules": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "upgrade_condition",
+              "max_upgrade_requests_per_session",
+              "fallback_behavior",
+              "inaccuracy_definition"
+            ],
+            "properties": {
+              "upgrade_condition": {
+                "type": "string",
+                "description": "When the agent may request a full IOC upgrade."
+              },
+              "max_upgrade_requests_per_session": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fallback_behavior": {
+                "type": "string",
+                "description": "Behavior when upgrade is unavailable or declined."
+              },
+              "inaccuracy_definition": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "IocFull": {
+        "title": "IOC Full machine response",
+        "description": "Full IOC tier. Shares ioc_version definition with IocLite; omits agent_rules and uses iocFull in data.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ioc_version", "type", "data"],
+        "properties": {
+          "ioc_version": {
+            "$ref": "#/components/schemas/IocVersion"
+          },
+          "type": {
+            "type": "string",
+            "const": "ioc_full"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["archetype", "iocFull"],
+            "properties": {
+              "archetype": {
+                "type": "string",
+                "description": "Lowercase IOC archetype key derived from birthdate."
+              },
+              "iocFull": {
+                "type": "string",
+                "description": "Complete initial operating conditions block for the archetype."
+              }
+            }
+          }
+        }
+      },
       "IocUpgradeRequest": {
         "type": "object",
         "description": "Paid full IOC: requires a valid `ioc_checkout_session` from IOC Checkout for success. Omitted or invalid session yields `payment_required` (HTTP 200).",
